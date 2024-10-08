@@ -1,9 +1,6 @@
 {
-  "name": "@repo/typescript-config",
-  "version": "0.0.0",
-  "private": true,
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  }
+  "name": "@motion-metrics/tsconfig",
+  "version": "0.1.1",
+  "packageManager": "npm@10.8.2",
+  "main": "./tsconfig.json"
 }

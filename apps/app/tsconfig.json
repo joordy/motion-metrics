@@ -1,18 +1,26 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@motion-metrics/tsconfig",
   "compilerOptions": {
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components": ["./src/components"],
+      "@/types/*": ["src/types/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
-    "next.config.mjs",
+    "environment.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    "**/*.d.ts",
+    ".next/types/**/*.ts",
+    "../../node_modules/@clarity-digital/**/*.d.ts"
   ],
   "exclude": ["node_modules"]
 }
