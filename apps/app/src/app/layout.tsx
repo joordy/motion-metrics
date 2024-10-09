@@ -22,11 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "relative min-h-screen bg-[#262626] font-body text-[#FBF8F1] antialiased px-1.5",
+          "relative h-[100dvh] bg-[#262626] font-body text-[#FBF8F1] antialiased px-1.5",
           body.variable,
         )}
       >
-        <div className="rounded-b-xl bg-black h-[calc(100vh_-_68px)] overflow-hidden overflow-y-auto">
+        <div className="rounded-b-xl bg-black h-[calc(10dvh_-_68px)] overflow-hidden overflow-y-auto">
           {children}
         </div>
         <header className="">
