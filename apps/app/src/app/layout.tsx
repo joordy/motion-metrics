@@ -26,7 +26,7 @@ export default function RootLayout({
           body.variable,
         )}
       >
-        <div className="rounded-b-xl bg-black h-[calc(10dvh_-_68px)] overflow-hidden overflow-y-auto">
+        <div className="rounded-b-xl bg-black h-[calc(100dvh_-_68px)] overflow-hidden overflow-y-auto">
           {children}
         </div>
         <header className="">
