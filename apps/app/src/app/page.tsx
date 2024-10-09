@@ -1,6 +1,6 @@
 export default function Page() {
   return (
-    <main>
+    <main className="h-[200vh] p-20 bg-[hotpink]">
       <p>hello world</p>
     </main>
   );

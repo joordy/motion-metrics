@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import "./globals.css";
 
@@ -21,11 +22,26 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "relative min-h-screen bg-light-100 font-body text-light-900 antialiased",
+          "relative min-h-screen bg-[#262626] font-body text-[#FBF8F1] antialiased px-1.5",
           body.variable,
         )}
       >
-        {children}
+        <div className="rounded-b-xl bg-black h-[calc(100vh_-_68px)] overflow-hidden overflow-y-auto">
+          {children}
+        </div>
+        <header className="">
+          <menu className="flex items-center justify-between px-8 py-5 w-full h-full">
+            <li>
+              <Link href="#">Home</Link>
+            </li>
+            <li>
+              <Link href="#">Workouts</Link>
+            </li>
+            <li>
+              <Link href="#">Profile</Link>
+            </li>
+          </menu>
+        </header>
       </body>
     </html>
   );
