@@ -54,6 +54,9 @@ const config: Config = {
           "950": "#FAFAFA",
           DEFAULT: "#000000",
         },
+        brand: {
+          lime: "#DDFE31",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -1,3 +1,12 @@
+import { WorkoutCalendar } from "@/components/workout-calender";
+
+const WORKOUTS = [
+  { id: "1", date: "2024-10-09" /* other properties */ },
+  { id: "2", date: "2024-10-07" /* other properties */ },
+];
+
+const SCHEDULED_DAYS = [1, 3, 5]; // Monday, Wednesday, Friday
+
 export default function Page() {
   const date = new Date();
   const formattedDate = date.toLocaleDateString("en-NL", {
@@ -17,9 +26,9 @@ export default function Page() {
         <div className="size-12 rounded-full bg-dark-900" />
       </article>
 
-      <div className="h-24"></div>
+      <WorkoutCalendar workouts={WORKOUTS} scheduled={SCHEDULED_DAYS} />
 
-      <article className="flex flex-col space-y-2">
+      <article className="mt-8 flex flex-col space-y-2">
         <h2 className="font-semibold text-2xl">Upcoming workout</h2>
 
         <div className="bg-[#1A1A1B] p-1 rounded flex space-x-3">
@@ -34,7 +43,7 @@ export default function Page() {
         </div>
       </article>
 
-      <article className="mt-8">
+      <article className="mt-8 flex flex-col space-y-2">
         <h2 className="text-2xl font-semibold">Weekly stats</h2>
 
         <div className="grid grid-cols-8 gap-2">
