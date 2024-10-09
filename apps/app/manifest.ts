@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "A simple way to track your workout activity. Track your workout activity with MotionMetrics. Keep track of your workout activity and see your progress over time.",
     start_url: "/",
     display: "standalone",
-    background_color: "000",
-    theme_color: "fff",
+    background_color: "#262626",
+    theme_color: "FBF8F1",
     icons: [
       {
         src: "/icon-192x192.png",
