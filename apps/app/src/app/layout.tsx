@@ -22,14 +22,15 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "relative h-[100dvh] bg-[#262626] font-body text-[#FBF8F1] antialiased px-1.5",
+          "relative h-[100dvh] bg-[#262626]  font-body text-[#FBF8F1] antialiased",
           body.variable,
         )}
       >
-        <div className="rounded-b-xl bg-black h-[calc(100dvh_-_68px)] overflow-hidden overflow-y-auto">
+        <div className="rounded-b-xl border-4 border-[hotpink] bg-black h-[calc(100dvh_-_68px)] overflow-hidden overflow-y-auto">
           {children}
         </div>
-        <header className="">
+
+        <header className="fixed bottom-0 left-0 right-0">
           <menu className="flex items-center justify-between px-8 py-5 w-full h-full">
             <li>
               <Link href="#">Home</Link>
