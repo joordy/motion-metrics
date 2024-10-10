@@ -22,10 +22,10 @@ export function LoginForm() {
       // });
       toast("Er is een fout opgetreden", {
         description: status?.message,
-        action: {
-          label: "Undo",
-          onClick: () => console.log("Undo"),
-        },
+        // action: {
+        //   label: "Undo",
+        //   // onClick: () => console.log("Undo"),
+        // },
       });
     }
   }, [status]);
@@ -44,11 +44,11 @@ export function LoginForm() {
           type="email"
           required
         />
-        {status?.errors?.email && (
+        {status?.errors && "email" in status.errors && (
           <span className="mt-1 text-xs text-ui-error">
             {status?.errors?.email}
           </span>
-        )}{" "}
+        )}
       </div>
 
       <div className="flex flex-col">
@@ -60,11 +60,14 @@ export function LoginForm() {
           type="password"
           required
         />
-        {status?.errors?.password?.[0] && (
-          <span className="mt-1 text-xs text-ui-error">
-            {status?.errors?.password?.[0]}
-          </span>
-        )}
+
+        {status?.errors &&
+          "password" in status.errors &&
+          status.errors.password?.[0] && (
+            <span className="mt-1 text-xs text-ui-error">
+              {status?.errors?.password?.[0]}
+            </span>
+          )}
       </div>
 
       <div className="flex justify-between">

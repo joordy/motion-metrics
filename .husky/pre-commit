@@ -1,1 +1,1 @@
-
+cd apps && cd app && pnpm run lint:fix

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "ui:add": "pnpm dlx shadcn-ui@latest add",
+    "ui:add": "pnpm dlx shadcn-ui@latest add input",
     "lint": "eslint ."
   },
   "peerDependencies": {
@@ -33,7 +33,6 @@
     "./postcss.config": "./postcss.config.mjs",
     "./tailwind.config": "./tailwind.config.ts",
     "./lib/*": "./src/lib/*.ts",
-    "./hooks/*": "./src/hooks/*.ts",
     "./components/*": "./src/components/*.tsx"
   }
 }

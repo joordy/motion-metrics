@@ -6,7 +6,7 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "ui:add": "pnpm dlx shadcn-ui@latest add",
+    "ui:add": "pnpm --filter @motion-metrics/ui ui:add",
     "prepare": "husky"
   },
   "dependencies": {

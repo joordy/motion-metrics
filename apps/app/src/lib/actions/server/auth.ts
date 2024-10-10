@@ -10,7 +10,7 @@ import { password } from "@/lib/validations/auth";
 
 export async function login(_: unknown, formData: FormData) {
   if (!formData) {
-    console.error("FormData is undefined");
+    // console.error("FormData is undefined");
     return { type: "error" as const, errors: { form: ["Invalid form data"] } };
   }
 
@@ -26,7 +26,7 @@ export async function login(_: unknown, formData: FormData) {
       acc[key] = value;
       return acc;
     },
-    {} as Record<string, FormDataEntryValue>,
+    {} as Record<string, FormDataEntryValue>
   );
 
   const result = schema.safeParse(formDataObject);
