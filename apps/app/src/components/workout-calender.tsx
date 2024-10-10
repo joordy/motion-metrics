@@ -24,7 +24,7 @@ export function WorkoutCalendar({ scheduled, workouts }: Props) {
           const isActive = el.toDateString() === today.toDateString();
           const dateString = el.toISOString().split("T")[0]; // 'YYYY-MM-DD'
           const dayWorkouts = workouts.filter(
-            (workout) => workout.date === dateString,
+            (workout) => workout.date === dateString
           );
           const isScheduled = scheduled.includes(el.getDay());
           const isScheduledAndLogged = isScheduled && dayWorkouts.length >= 1;
@@ -40,7 +40,7 @@ export function WorkoutCalendar({ scheduled, workouts }: Props) {
                   "border border-brand-lime/20":
                     isScheduled && dayWorkouts.length === 0 && !isActive,
                   "bg-brand-lime/20": isScheduledAndLogged && !isActive,
-                },
+                }
               )}
             >
               <p className="text-sm leading-tight">{DAY_ABBREVIATIONS[i]}</p>

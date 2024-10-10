@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@motion-metrics/ui/components/ui/button";
+import { cn } from "@motion-metrics/ui/lib/utils";
 
 export default function Page() {
   return (

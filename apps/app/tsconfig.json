@@ -1,49 +1,25 @@
 {
+  "extends": "@motion-metrics/ts-config/nextjs.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/components": [
-        "./src/components"
-      ],
-      "@/types/*": [
-        "src/types/*"
-      ]
-    },
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "noEmit": true,
-    "incremental": true,
-    "module": "esnext",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve"
+      "@/*": ["./src/*"],
+      "@/types/*": ["./types/*"],
+      "@/types": ["./types/index.d.ts"]
+    }
   },
   "include": [
     "next-env.d.ts",
-    "environment.d.ts",
+    "next.config.js",
+    "**/*.js",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.d.ts",
-    ".next/types/**/*.ts",
-    "../../node_modules/@clarity-digital/**/*.d.ts"
+    ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
