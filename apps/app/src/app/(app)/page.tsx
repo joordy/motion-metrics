@@ -1,4 +1,6 @@
+
 import { WorkoutCalendar } from "@/components/workout-calender";
+
 
 const WORKOUTS = [
   { id: "1", date: "2024-10-09" /* other properties */ },
@@ -7,7 +9,7 @@ const WORKOUTS = [
 
 const SCHEDULED_DAYS = [1, 3, 5]; // Monday, Wednesday, Friday
 
-export default function Page() {
+export default async function Page() {
   const date = new Date();
   const formattedDate = date.toLocaleDateString("en-NL", {
     weekday: "long",
@@ -17,6 +19,7 @@ export default function Page() {
 
   return (
     <main className="flex flex-col justify-between pt-8">
+      <p>Hello {data.user.email}</p>
       <article className="flex justify-between items-center">
         <div className="flex  flex-col-reverse">
           <h1 className="font-bold -mt-1 text-3xl">Dashboard</h1>

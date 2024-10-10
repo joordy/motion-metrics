@@ -1,4 +1,3 @@
 {
-  "extends": "@motion-metrics/tsconfig",
   "exclude": ["node_modules", "dist", "__generated__"]
 }

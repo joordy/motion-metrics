@@ -1,12 +1,13 @@
 import type { ReactNode } from "react";
 
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import "./globals.css";
 
 import { body } from "@/lib/fonts/index";
 import { cn } from "@/lib/utils";
+
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Home | MotionMetrics",
@@ -26,23 +27,9 @@ export default function RootLayout({
           body.variable,
         )}
       >
-        <div className="rounded-xl px-3 border-4 border-dark-200 bg-dark-50 h-[calc(100dvh_-_68px)] overflow-hidden overflow-y-auto">
-          {children}
-        </div>
+        {children}
 
-        <header className="fixed bottom-0 left-0 right-0">
-          <menu className="flex items-center justify-between px-8 py-5 w-full h-full">
-            <li>
-              <Link href="#">Home</Link>
-            </li>
-            <li>
-              <Link href="#">Workouts</Link>
-            </li>
-            <li>
-              <Link href="#">Profile</Link>
-            </li>
-          </menu>
-        </header>
+        <Toaster />
       </body>
     </html>
   );

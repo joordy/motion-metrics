@@ -1,6 +1,0 @@
-{
-  "name": "@motion-metrics/tsconfig",
-  "version": "0.1.1",
-  "packageManager": "npm@10.8.2",
-  "main": "./tsconfig.json"
-}
