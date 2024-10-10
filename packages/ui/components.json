@@ -12,9 +12,7 @@
   },
   "aliases": {
     "components": "@motion-metrics/ui/components",
-    "ui": "@motion-metrics/ui/components/ui",
     "utils": "@motion-metrics/ui/lib/utils",
-    "lib": "@motion-metrics/ui/lib",
-    "hooks": "@motion-metrics/ui/hooks"
+    "lib": "@motion-metrics/ui/lib"
   }
 }

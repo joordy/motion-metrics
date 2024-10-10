@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@repo/ui/*": ["./src/*"]
+      "@motion-metrics/ui/*": ["./src/*"]
     }
   },
   "include": ["src"],
