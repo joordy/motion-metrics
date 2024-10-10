@@ -1,6 +1,4 @@
-
 import { WorkoutCalendar } from "@/components/workout-calender";
-
 
 const WORKOUTS = [
   { id: "1", date: "2024-10-09" /* other properties */ },
@@ -19,7 +17,6 @@ export default async function Page() {
 
   return (
     <main className="flex flex-col justify-between pt-8">
-      <p>Hello {data.user.email}</p>
       <article className="flex justify-between items-center">
         <div className="flex  flex-col-reverse">
           <h1 className="font-bold -mt-1 text-3xl">Dashboard</h1>
