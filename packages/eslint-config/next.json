@@ -1,0 +1,75 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "eslint:recommended",
+    "turbo"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "simple-import-sort",
+    "eslint-plugin-prettier",
+    "eslint-plugin-unused-imports",
+    "@typescript-eslint",
+    "simple-import-sort",
+    "unused-imports"
+  ],
+  "rules": {
+    "no-console": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          ["^@/types"],
+          ["^react"],
+          ["^next"],
+          ["^@/motion-metrics"],
+          ["^"],
+          ["^@/app"],
+          ["^@/lib"],
+          ["^@/hooks"],
+          ["^@/providers"],
+          ["^@/components/"],
+          ["^@/config"],
+          ["^@/styles"],
+          ["^\\."]
+        ]
+      }
+    ],
+    "import/newline-after-import": ["error", { "count": 1 }],
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "globals": {
+    "React": true,
+    "JSX": true
+  },
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "ignorePatterns": [".*.js", "node_modules/"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint/eslint-plugin"]
+    },
+    {
+      "files": ["tailwind.config.ts"],
+      "rules": {
+        "simple-import-sort/imports": "off"
+      }
+    }
+  ]
+}

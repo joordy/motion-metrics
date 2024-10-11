@@ -30,17 +30,17 @@ export async function updateSession(request: NextRequest) {
               name,
               value,
               //options
-            }) => request.cookies.set(name, value)
+            }) => request.cookies.set(name, value),
           );
           supabaseResponse = NextResponse.next({
             request,
           });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options),
           );
         },
       },
-    }
+    },
   );
 
   // IMPORTANT: Avoid writing any logic between createServerClient and
@@ -54,7 +54,7 @@ export async function updateSession(request: NextRequest) {
   if (
     !user &&
     !PUBLIC_ROUTES.some((route: string) =>
-      request.nextUrl.pathname.startsWith(route)
+      request.nextUrl.pathname.startsWith(route),
     )
   ) {
     // if (
@@ -64,7 +64,7 @@ export async function updateSession(request: NextRequest) {
     // ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone();
-    url.pathname = "/welcome";
+    url.pathname = "/auth";
     return NextResponse.redirect(url);
   }
 

@@ -1,65 +1,8 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint",
-    "simple-import-sort",
-    "eslint-plugin-prettier",
-    "eslint-plugin-unused-imports"
-  ],
   "root": true,
-  "ignorePatterns": ["src/lib/generated/**.*"],
-  "rules": {
-    "no-console": "error",
-    "@typescript-eslint/consistent-type-imports": "error",
-    "simple-import-sort/imports": [
-      "error",
-      {
-        "groups": [
-          ["^@/types"],
-          ["^react"],
-          ["^next"],
-          ["^"],
-          ["^@/app"],
-          ["^@/lib"],
-          ["^@/hooks"],
-          ["^@/providers"],
-          ["^@/components/scopes"],
-          ["^@/components/elements"],
-          ["^@/components/ui"],
-          ["^@/config"],
-          ["^@/styles"],
-          ["^\\."]
-        ]
-      }
-    ],
-    "import/newline-after-import": ["error", { "count": 1 }],
-    "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
-      "warn",
-      {
-        "vars": "all",
-        "varsIgnorePattern": "^_",
-        "args": "after-used",
-        "argsIgnorePattern": "^_"
-      }
-    ]
-  },
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js"],
-      "parser": "@typescript-eslint/parser",
-      "plugins": ["@typescript-eslint/eslint-plugin"]
-    },
-    {
-      "files": ["tailwind.config.ts"],
-      "rules": {
-        "simple-import-sort/imports": "off"
-      }
-    }
-  ]
+  "extends": ["@motion-metrics/eslint-config/next.json"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": true
+  }
 }
