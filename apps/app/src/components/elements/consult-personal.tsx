@@ -54,11 +54,11 @@ export const ConsultPersonalForm = ({ config }: Props) => {
               >
                 <Icons name="ArrowLeft" className="size-6" />
               </button>
-              <FormLabel className="leading-tight text-3xl font-semibold">
+              <FormLabel className="leading-tight text-2xl font-semibold">
                 {config.heading}
               </FormLabel>
             </div>
-            <span>{currentStep} / 2</span>
+            <span className="size-8 flex items-center">{currentStep} / 2</span>
           </div>
           <FormDescription className="max-w-prose">
             {config.paragraph.replace(
@@ -77,15 +77,10 @@ export const ConsultPersonalForm = ({ config }: Props) => {
         </CardContent>
 
         <PaginationMultiStepForm
+          className="mt-4"
           hidePrevious={true}
           nextLabel="Continue"
-          // onPrevious={() => onPrevious(form.getValues())}
         />
-        {/* <PaginationMultiStepForm
-          hidePrevious={true}
-          nextLabel={"Register"}
-          onPrevious={() => onPrevious(form.getValues())}
-        /> */}
       </FormConsult>
     </Form>
   );

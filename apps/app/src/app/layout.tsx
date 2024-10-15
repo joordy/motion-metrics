@@ -3,11 +3,10 @@ import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
 import "./globals.css";
+import { Toaster } from "@motion-metrics/ui/components/ui/sonner";
 
 import { body } from "@/lib/fonts/index";
 import { cn } from "@/lib/utils";
-
-// import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Home | MotionMetrics",
@@ -29,7 +28,7 @@ export default function RootLayout({
       >
         {children}
 
-        {/* <Toaster /> */}
+        <Toaster />
       </body>
     </html>
   );

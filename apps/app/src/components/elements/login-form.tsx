@@ -113,11 +113,7 @@ export const LoginForm = ({ config }: Props) => {
           <FormMessage />
         </CardContent>
         <CardFooter className="w-full">
-          <FormSubmit
-            className="w-full"
-            isPending={pending}
-            label="Account aanmaken"
-          />
+          <FormSubmit className="w-full" isPending={pending} label="Log in" />
         </CardFooter>
       </FormConsult>
     </Form>

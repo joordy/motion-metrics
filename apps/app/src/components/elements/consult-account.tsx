@@ -112,11 +112,11 @@ export const ConsultAccountForm = ({ config }: Props) => {
               >
                 <Icons name="ArrowLeft" className="size-6" />
               </button>
-              <FormLabel className="leading-tight text-3xl font-semibold">
+              <FormLabel className="leading-tight text-2xl font-semibold">
                 {config.heading}
               </FormLabel>
             </div>
-            <span>{currentStep} / 2</span>
+            <span className="size-8 flex items-center">{currentStep} / 2</span>
           </div>
           <FormDescription className="text-left max-w-sm">
             {config.paragraph}
@@ -137,11 +137,11 @@ export const ConsultAccountForm = ({ config }: Props) => {
           )}
         </CardContent>
 
-        <CardFooter className="w-full">
+        <CardFooter className="w-full mt-4">
           <FormSubmit
             className="w-full"
             isPending={pending}
-            label="Account aanmaken"
+            label="Create account"
           />
         </CardFooter>
       </FormConsult>

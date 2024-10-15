@@ -41,7 +41,7 @@ export const signup = async (data: RegisterSchema) => {
 
   const supabase = createClient();
 
-  const response = await supabase.auth.signUp({
+  const { error: signUpError } = await supabase.auth.signUp({
     email: data.email,
     password: data.password,
     options: {
@@ -54,10 +54,10 @@ export const signup = async (data: RegisterSchema) => {
     },
   });
 
-  if (response.error) {
+  if (signUpError) {
     return {
       type: "error" as const,
-      errors: { form: [response.error.message] },
+      errors: { form: [signUpError.message] },
     };
   }
 

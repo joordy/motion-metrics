@@ -42,14 +42,14 @@ export function ConsultStartForm({ config }: Props) {
     >
       <Form {...form}>
         <FormConsult
-          className="flex flex-col space-y-0"
           onSubmit={form.handleSubmit(onNext)}
+          className="justify-start items-start mx-auto w-full max-w-[550px]"
         >
           <CardHeader className="items-center">
             <FormLabel className="leading-tight text-3xl font-semibold">
               {config.heading}
             </FormLabel>
-            <FormDescription className="mx-auto inline max-w-64 justify-center text-center md:flex md:max-w-full md:flex-wrap">
+            <FormDescription className="text-left mr-auto inline max-w-64 justify-center  md:flex md:max-w-full md:flex-wrap">
               {config.paragraph}
             </FormDescription>
             <FormControl>
