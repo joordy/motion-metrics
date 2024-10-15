@@ -20,7 +20,11 @@ import {
 } from "@motion-metrics/ui/components/ui/form";
 import type { z } from "zod";
 
-import { authenticateSchema, loginSchema } from "@/lib/schemas/login";
+import {
+  authenticateSchema,
+  LoginSchema,
+  loginSchema,
+} from "@/lib/schemas/login";
 
 import { useMultiStepForm } from "@/hooks/use-multi-step-form";
 
@@ -55,7 +59,7 @@ export const LoginForm = ({ config }: Props) => {
               const validation = loginSchema.safeParse(data);
 
               if (validation.success) {
-                const res = await action(data);
+                const res = await action(data as LoginSchema);
 
                 setPending(false);
 

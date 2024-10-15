@@ -19,8 +19,7 @@ import {
 } from "@motion-metrics/ui/components/ui/form";
 import type { z } from "zod";
 
-import type {
-  RegisterSchema} from "@/lib/schemas/register";
+import type { RegisterSchema } from "@/lib/schemas/register";
 import {
   registerAccountDetailsSchema,
   registerSchema,
@@ -82,6 +81,9 @@ export const ConsultAccountForm = ({ config }: Props) => {
                 );
               });
             }
+          } else {
+            // console.error("Validation failed", validation.error);
+            setPending(false);
           }
         },
         true,
