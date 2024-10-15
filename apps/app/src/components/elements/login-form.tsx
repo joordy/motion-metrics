@@ -20,11 +20,8 @@ import {
 } from "@motion-metrics/ui/components/ui/form";
 import type { z } from "zod";
 
-import {
-  authenticateSchema,
-  LoginSchema,
-  loginSchema,
-} from "@/lib/schemas/login";
+import type { LoginSchema } from "@/lib/schemas/login";
+import { authenticateSchema, loginSchema } from "@/lib/schemas/login";
 
 import { useMultiStepForm } from "@/hooks/use-multi-step-form";
 
