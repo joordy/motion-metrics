@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { Button } from "@motion-metrics/ui/button";
+
+import { Button } from "@motion-metrics/ui/components/ui/button";
+
 import styles from "./page.module.css";
 
 export default function Home() {

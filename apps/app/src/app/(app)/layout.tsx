@@ -25,7 +25,7 @@ export default async function RootLayout({
 
   return (
     <Fragment>
-      <div className="rounded-xl px-3 border-4 border-dark-200 bg-dark-50 h-[calc(100dvh_-_68px)] overflow-hidden overflow-y-auto">
+      <div className="rounded-xl border-4 border-dark-200 bg-dark-50 h-[calc(100dvh_-_68px)] overflow-hidden overflow-y-auto">
         {children}
       </div>
 

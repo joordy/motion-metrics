@@ -18,7 +18,48 @@ export async function GET(request: NextRequest) {
       type,
       token_hash,
     });
-    if (!error) {
+
+    const {
+      data: { user },
+      error: getUserError,
+    } = await supabase.auth.getUser();
+
+    if (getUserError || !user) {
+      // console.error("Error getting user:", getUserError);
+      redirect("/error");
+    }
+
+    // Insert a new row into user_workout_data
+    const { error: insertError } = await supabase
+      .from("user_workout_data")
+      .insert([
+        {
+          user_id: user.id,
+          active_workout_plan: null,
+          logged_workouts: [],
+        },
+      ]);
+
+    // if (insertError) {
+    //   // console.error("Error inserting user_workout_data:", insertError);
+    //   // You might want to handle this error differently,
+    //   // perhaps by redirecting to a specific error page or showing a message
+    //   //
+    // }
+    // // const { data, error } = await supabase
+    // //   .from('workout_logs')
+    // //   .insert([
+    // //     {
+    // //       user_id: supabase.auth.user().id,
+    // //       workout_date: workoutData.date,
+    // //       exercise: workoutData.exercise,
+    // //       sets: workoutData.sets,
+    // //       reps: workoutData.reps,
+    // //       weight: workoutData.weight
+    // //     }
+    // //   ]);
+
+    if (!error || !insertError) {
       // redirect user to specified redirect URL or root of app
       redirect(next);
     }

@@ -3,67 +3,25 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { z } from "zod";
+import type { z } from "zod";
 
+import type { loginSchema } from "@/lib/schemas/login";
+import type { registerSchemaRaw } from "@/lib/schemas/register";
 import { createClient } from "@/lib/supabase/server";
-import { password } from "@/lib/validations/auth";
 
-export async function login(_: unknown, formData: FormData) {
-  if (!formData) {
-    // console.error("FormData is undefined");
+type LoginSchema = z.infer<typeof loginSchema>;
+
+export const login = async (data: LoginSchema) => {
+  if (!data) {
     return { type: "error" as const, errors: { form: ["Invalid form data"] } };
   }
 
   const supabase = createClient();
 
-  const schema = z.object({
-    email: z.string().email(),
-    password: password,
+  const { error } = await supabase.auth.signInWithPassword({
+    email: data.email,
+    password: data.password,
   });
-
-  const formDataObject = Array.from(formData.entries()).reduce(
-    (acc, [key, value]) => {
-      acc[key] = value;
-      return acc;
-    },
-    {} as Record<string, FormDataEntryValue>
-  );
-
-  const result = schema.safeParse(formDataObject);
-
-  if (result.success) {
-    const { email, password } = result.data;
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) {
-      redirect("/error");
-    }
-    revalidatePath("/", "layout");
-    redirect("/");
-    return {
-      type: "success",
-      message: "You have successfully logged in!",
-    };
-  }
-  return {
-    type: "error" as const,
-    errors: result.error.flatten().fieldErrors,
-  };
-}
-
-export async function signup(formData: FormData) {
-  const supabase = createClient();
-
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
-
-  const { error } = await supabase.auth.signUp(data);
 
   if (error) {
     redirect("/error");
@@ -71,4 +29,40 @@ export async function signup(formData: FormData) {
 
   revalidatePath("/", "layout");
   redirect("/");
-}
+  return { success: true };
+};
+
+type RegisterSchema = z.infer<typeof registerSchemaRaw>;
+
+export const signup = async (data: RegisterSchema) => {
+  if (!data) {
+    return { type: "error" as const, errors: { form: ["Invalid form data"] } };
+  }
+
+  const supabase = createClient();
+
+  const response = await supabase.auth.signUp({
+    email: data.email,
+    password: data.password,
+    options: {
+      data: {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        subscribed: false,
+        admin: false,
+      },
+    },
+  });
+
+  if (response.error) {
+    return {
+      type: "error" as const,
+      errors: { form: [response.error.message] },
+    };
+  }
+
+  revalidatePath("/confirm", "layout");
+  redirect("/auth/verify-email");
+
+  return { success: true };
+};
