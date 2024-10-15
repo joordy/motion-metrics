@@ -12,3 +12,5 @@ export const authenticateSchema = z.object({
 export const loginSchemaRaw = startSchema.merge(authenticateSchema);
 
 export const loginSchema = loginSchemaRaw;
+
+export type LoginSchema = z.infer<typeof loginSchemaRaw>;

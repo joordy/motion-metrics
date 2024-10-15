@@ -14,34 +14,36 @@ import {} from "framer-motion";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 
 import type { login, signup } from "@/lib/actions/server/auth";
+import type { LoginSchema } from "@/lib/schemas/login";
+import type { RegisterSchema } from "@/lib/schemas/register";
 
 import useMeasure from "@/hooks/use-measure";
 
+import { LoadingSpinner } from "@/components/elements/loading-spinner";
 import { useAppState } from "@/components/scopes/app-state";
 
-import { LoadingSpinner } from "../elements/loading-spinner";
-
-// export type FormState = {
-//   step?: number | string;
-//   total?: number;
-//   [key: string]: string | string[] | number | undefined | null;
-// };
-
-export type FormState = {
-  [key: string]: string | string[] | number | undefined | null;
-};
-
-export type MsfAction = (
-  data: unknown,
-) => Promise<{ success: boolean; errors?: { [key: string]: string } } | void>;
+type RegisterActionType = (data: RegisterSchema) => Promise<ActionResult>;
+type LoginActionType = (data: LoginSchema) => Promise<ActionResult>;
 
 type FormStateContextType = [
   FormState,
   Dispatch<SetStateAction<FormState>>,
-  typeof signup,
-  typeof login,
-  (direction: 1 | -1) => void, // Add this line
+  RegisterActionType,
+  LoginActionType,
+  (direction: 1 | -1) => void,
 ];
+
+export type FormState = Partial<RegisterSchema & LoginSchema> & {
+  [key: string]: string | string[] | number | undefined | null;
+};
+
+export type ActionResult =
+  | { type: "error"; errors: { form: string[] }; success?: undefined }
+  | { success: boolean; type?: undefined; errors?: undefined };
+
+export type MsfAction = (
+  data: unknown,
+) => Promise<{ success: boolean; errors?: { [key: string]: string } } | void>;
 
 interface Props extends PropsWithChildren {
   name: string;
@@ -60,8 +62,6 @@ export const FormStateContext = createContext<FormStateContextType>([
 
 const variants = {
   initial: (direction: number) => ({
-    // x: direction > 0 ? 200 : -200,
-    // x: `${110 * direction}%`,
     y: 0,
     x: `${10 * direction}px`,
     opacity: 0,
@@ -72,7 +72,6 @@ const variants = {
     opacity: 1,
   },
   exit: (direction: number) => ({
-    // x: direction > 0 ? -200 : 200,
     y: 0,
     x: `${-10 * direction}px`,
     opacity: 0,
@@ -126,20 +125,6 @@ export function MultiStepFormProvider({
     [setValue, state, currentStep],
   );
 
-  // const setCurrentStep = useCallback(
-  //   (step: number | string, newDirection: 1 | -1) => {
-  //     // setDirection((prevStep) => {
-  //     //   const prevStepNumber =
-  //     //     typeof currentStep === "number" ? currentStep : 0;
-  //     //   const newStepNumber = typeof step === "number" ? step : 0;
-  //     //   return newStepNumber > prevStepNumber ? 1 : -1;
-  //     // });
-  //     setDirection(newDirection);
-  //     setValue({ ...state, step });
-  //   },
-  //   [setValue, state],
-  // );
-
   useEffect(() => {
     if (currentStep === undefined) {
       setCurrentStep(0);
@@ -153,29 +138,6 @@ export function MultiStepFormProvider({
     <FormStateContext.Provider
       value={[state, setState, signupAction, loginAction, updateDirection]}
     >
-      {/* <AnimatePresence mode="wait" initial={false} custom={direction}>
-        {_children.map((child, index) => {
-          if (index === (typeof currentStep === "number" ? currentStep : 0)) {
-            return (
-              <motion.div
-                key={index}
-                custom={direction}
-                variants={variants}
-                initial="initial"
-                animate="active"
-                exit="exit"
-                transition={{ duration: 0.3 }}
-              >
-                {child}
-              </motion.div>
-            );
-          }
-          if (index === _children.length - 1 && currentStep === "done") {
-            return <LoadingSpinner className="size-6" key={"done"} />;
-          }
-          return null;
-        })}
-      </AnimatePresence> */}
       <MotionConfig transition={{ duration: 0.5, type: "spring", bounce: 0 }}>
         <motion.div animate={{ height: bounds?.height }}>
           <div ref={ref}>

@@ -1,8 +1,12 @@
 import { useCallback, useContext } from "react";
 
-import type { login, signup } from "@/lib/actions/server/auth";
+import type { LoginSchema } from "@/lib/schemas/login";
+import type { RegisterSchema } from "@/lib/schemas/register";
 
-import type { FormState } from "@/components/scopes/multi-step-form";
+import type {
+  ActionResult,
+  FormState,
+} from "@/components/scopes/multi-step-form";
 import { FormStateContext } from "@/components/scopes/multi-step-form";
 
 export function useMultiStepForm() {
@@ -43,20 +47,38 @@ export function useMultiStepForm() {
   );
 
   const onSubmit = useCallback(
-    async (
+    async <T extends RegisterSchema | LoginSchema>(
       data: FormState,
       callback: (
         data: FormState,
-        action: typeof signup | typeof login,
+        action: (data: T) => Promise<ActionResult>,
       ) => Promise<void> | void,
       isRegister: boolean = true,
     ) => {
-      const fullData = { ...state, ...data };
-      const actionToUse = isRegister ? signupAction : loginAction;
+      const fullData = { ...state, ...data } as T;
+      const actionToUse = (isRegister ? signupAction : loginAction) as (
+        data: T,
+      ) => Promise<ActionResult>;
       await callback(fullData, actionToUse);
     },
     [state, signupAction, loginAction],
   );
+
+  // const onSubmit = useCallback(
+  //   async (
+  //     data: FormState,
+  //     callback: (
+  //       data: FormState,
+  //       action: (data: RegisterSchema | LoginSchema) => Promise<ActionResult>,
+  //     ) => Promise<void> | void,
+  //     isRegister: boolean = true,
+  //   ) => {
+  //     const fullData = { ...state, ...data };
+  //     const actionToUse = isRegister ? signupAction : loginAction;
+  //     await callback(fullData, actionToUse);
+  //   },
+  //   [state, signupAction, loginAction],
+  // );
 
   const onJumpTo = useCallback(
     (data: FormState, stepIndex: number) => {

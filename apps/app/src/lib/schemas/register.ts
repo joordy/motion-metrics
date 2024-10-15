@@ -34,3 +34,5 @@ export const registerSchemaRaw = startSchema
   .merge(personalAccountSchema);
 
 export const registerSchema = registerSchemaRaw.superRefine(passwordRefine);
+
+export type RegisterSchema = z.infer<typeof registerSchemaRaw>;
