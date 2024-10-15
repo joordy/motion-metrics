@@ -20,10 +20,10 @@ import {
 import type { z } from "zod";
 
 import type {
-  RegisterSchema,
-  registerSchema} from "@/lib/schemas/register";
+  RegisterSchema} from "@/lib/schemas/register";
 import {
-  registerAccountDetailsSchema
+  registerAccountDetailsSchema,
+  registerSchema,
 } from "@/lib/schemas/register";
 
 import { useMultiStepForm } from "@/hooks/use-multi-step-form";
@@ -32,8 +32,7 @@ import { FormConsult } from "@/components/elements/form-consult";
 import { FormSubmit } from "@/components/elements/form-submit";
 import { FormTextField } from "@/components/elements/form-text-field";
 import Icons from "@/components/elements/icons";
-
-import type { FormState } from "../scopes/multi-step-form";
+import type { FormState } from "@/components/scopes/multi-step-form";
 
 interface Props {
   config: RegistrationStepOne;
@@ -60,20 +59,29 @@ export const ConsultAccountForm = ({ config }: Props) => {
       await onSubmit<RegisterSchema>(
         data,
         async (formData, action) => {
-          const res = await action(formData as RegisterSchema);
-          setPending(false);
-          if ("success" in res && res.success) {
-            clearData();
-          } else if ("errors" in res) {
-            return;
-            // Object.entries(res.errors).forEach(([key, value]) => {
-            //   form.setError(
-            //     key as keyof z.infer<typeof registerAccountDetailsSchema>,
-            //     {
-            //       message: String(value),
-            //     },
-            //   );
-            // });
+          const validation = registerSchema.safeParse({
+            first_name: formData.first_name,
+            last_name: formData.last_name,
+            email: formData.email,
+            password: formData.password,
+            password_confirmation: formData.password_confirmation,
+          });
+
+          if (validation.success) {
+            const res = await action(formData as RegisterSchema);
+            setPending(false);
+            if (res?.success) {
+              clearData();
+            } else if (res?.errors) {
+              Object.entries(res.errors).forEach(([key, value]) => {
+                form.setError(
+                  key as keyof z.infer<typeof registerAccountDetailsSchema>,
+                  {
+                    message: String(value),
+                  },
+                );
+              });
+            }
           }
         },
         true,
@@ -81,67 +89,6 @@ export const ConsultAccountForm = ({ config }: Props) => {
     },
     [clearData, form, onSubmit],
   );
-
-  // const handleSubmit: SubmitHandler<
-  //   z.infer<typeof registerAccountDetailsSchema>
-  // > = useCallback(
-  //   async (data) => {
-  //     setPending(true);
-  //     await onSubmit(
-  //       data,
-  //       async (formData, action) => {
-  //         const res = await action(formData);
-  //         // Handle result
-  //         setPending(false);
-  //       },
-  //       true,
-  //     ); // Set isRegister to true for registration, false for login
-  //   },
-  //   [onSubmit],
-  // );
-
-  // const handleSubmit: SubmitHandler<
-  //   z.infer<typeof registerAccountDetailsSchema>
-  // > = useCallback(
-  //   async (data) => {
-  //     setPending(true);
-  //     await onSubmit(data, async (data, action) => {
-  //       const {
-  //         first_name,
-  //         last_name,
-  //         email,
-  //         password,
-  //         password_confirmation,
-  //       } = data;
-
-  //       const validation = registerSchema.safeParse({
-  //         first_name,
-  //         last_name,
-  //         email,
-  //         password,
-  //         password_confirmation,
-  //       });
-
-  //       if (validation.success) {
-  //         const res = await action(data);
-  //         setPending(false);
-  //         if (res?.success) {
-  //           clearData();
-  //         } else if (res?.errors) {
-  //   Object.entries(res.errors).forEach(([key, value]) => {
-  //     form.setError(
-  //       key as keyof z.infer<typeof registerAccountDetailsSchema>,
-  //       {
-  //         message: String(value),
-  //       },
-  //     );
-  //   });
-  // }
-  //       }
-  //     });
-  //   },
-  //   [clearData, form, onSubmit],
-  // );
 
   const handleErrorSubmit: SubmitErrorHandler<z.infer<typeof registerSchema>> =
     useCallback(async () => {
