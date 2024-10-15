@@ -33,7 +33,7 @@ async function getUserWorkoutData(userId: string) {
   return data;
 }
 
-export async function getCurrentUser() {
+async function getCurrentUser() {
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.getUser();
