@@ -46,7 +46,7 @@ export function ConsultStartForm({ config }: Props) {
           className="justify-start items-start mx-auto w-full max-w-[550px]"
         >
           <CardHeader className="items-center">
-            <FormLabel className="leading-tight text-3xl font-semibold">
+            <FormLabel className="text-3xl font-semibold font-body">
               {config.heading}
             </FormLabel>
             <FormDescription className="text-left mr-auto inline max-w-64 justify-center  md:flex md:max-w-full md:flex-wrap">

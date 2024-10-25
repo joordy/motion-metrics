@@ -1,10 +1,11 @@
 import { Fragment, type ReactNode } from "react";
 
 import type { Metadata } from "next";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
+
+import { AppHeader } from "@/components/elements/app-header";
 
 export const metadata: Metadata = {
   title: "Welcome back! | MotionMetrics",
@@ -25,23 +26,11 @@ export default async function RootLayout({
 
   return (
     <Fragment>
-      <div className="rounded-xl border-4 border-dark-200 bg-dark-50 h-[calc(100dvh_-_68px)] overflow-hidden overflow-y-auto">
+      <div className="rounded-xl pb-8 border-4 border-dark-200 bg-dark-50 h-[calc(100dvh_-_68px)] overflow-hidden overflow-y-auto">
         {children}
       </div>
 
-      <header className="fixed bottom-0 left-0 right-0">
-        <menu className="flex items-center justify-between px-8 py-5 w-full h-full">
-          <li>
-            <Link href="#">Home</Link>
-          </li>
-          <li>
-            <Link href="#">Workouts</Link>
-          </li>
-          <li>
-            <Link href="#">Profile</Link>
-          </li>
-        </menu>
-      </header>
+      <AppHeader />
     </Fragment>
   );
 }

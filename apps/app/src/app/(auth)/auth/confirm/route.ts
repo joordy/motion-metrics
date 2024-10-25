@@ -25,7 +25,6 @@ export async function GET(request: NextRequest) {
     } = await supabase.auth.getUser();
 
     if (getUserError || !user) {
-      // console.error("Error getting user:", getUserError);
       redirect("/error");
     }
 

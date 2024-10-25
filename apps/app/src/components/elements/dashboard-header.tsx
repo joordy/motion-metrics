@@ -9,16 +9,36 @@ import {
 import type { User } from "@supabase/supabase-js";
 
 interface Props {
-  date: string;
   user: User;
+  date?: string;
+  type?: "overview" | "workouts" | "profile";
 }
 
-export function DashboardHeader({ date, user }: Props) {
+export function DashboardHeader({ type = "overview", date, user }: Props) {
   return (
     <article className="flex mx-3 justify-between items-center mb-8">
       <div className="flex  flex-col-reverse">
-        <h1 className="font-bold -mt-1 text-3xl">Dashboard</h1>
-        <p className="">{date}</p>
+        {type === "workouts" && (
+          <>
+            <h1 className="font-bold -mt-1 text-3xl">Workouts</h1>
+          </>
+        )}
+        {type === "overview" && (
+          <>
+            <h1 className="font-bold -mt-1 text-3xl">Workouts</h1>
+            {date && <p className="">{date}</p>}
+          </>
+        )}
+        {type === "profile" && (
+          <div className="flex flex-col-reverse">
+            <h1 className="font-bold -mt-1 text-3xl">
+              {user.user_metadata.first_name}
+            </h1>
+            <p className="">Welcome back</p>
+          </div>
+        )}
+        {/* {type === "workouts" && "Dashboard"} */}
+        {date && <p className="">{date}</p>}
       </div>
 
       <DropdownMenu>
@@ -29,11 +49,11 @@ export function DashboardHeader({ date, user }: Props) {
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Team</DropdownMenuItem>
+          {/* <DropdownMenuItem>Profile</DropdownMenuItem> */}
+          {/* <DropdownMenuItem>Billing</DropdownMenuItem> */}
+          <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuItem>
-            <Link href="/sign-out">Sign out</Link>
+            <Link href="/auth/sign-out">Sign out</Link>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

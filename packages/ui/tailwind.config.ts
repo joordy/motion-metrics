@@ -1,4 +1,3 @@
-import { fontFamily } from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 
@@ -13,9 +12,6 @@ const config = {
   ],
   prefix: "",
   theme: {
-    fontFamily: {
-      body: ["var(--font-body)", ...fontFamily.sans],
-    },
     fontSize: {
       "2xs": "0.625rem",
       sm: "0.75rem",

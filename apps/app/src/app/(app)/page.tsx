@@ -1,53 +1,19 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import { buttonVariants } from "@motion-metrics/ui/components/ui/button";
 
-import { createClient } from "@/lib/supabase/server";
+import { getCurrentUser, getUserWorkoutData } from "@/lib/server-utils";
 import { cn } from "@/lib/utils";
 
+import { AppMain } from "@/components/elements/app-main";
 import { DashboardHeader } from "@/components/elements/dashboard-header";
 import { WorkoutCalendar } from "@/components/elements/workout-calender";
 
-const WORKOUTS = [
-  { id: "1", date: "2024-10-09" /* other properties */ },
-  { id: "2", date: "2024-10-07" /* other properties */ },
-];
-
-const SCHEDULED_DAYS = [1, 3, 5]; // Monday, Wednesday, Friday
-
-async function getUserWorkoutData(userId: string) {
-  const supabase = createClient();
-
-  const { data, error } = await supabase
-    .from("user_workout_data")
-    .select("*")
-    .eq("user_id", userId)
-    .single();
-
-  if (error) {
-    // console.error("Error fetching user workout data:", error);
-    return null;
-  }
-
-  return data;
-}
-
-async function getCurrentUser() {
-  const supabase = createClient();
-
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
-    redirect("/auth");
-  }
-
-  return data;
-}
+const SCHEDULED_DAYS = ["1", "3", "5"]; // Monday, Wednesday, Friday
 
 export default async function Page() {
   const { user: currentUser } = await getCurrentUser();
-  const workoutInformation = await getUserWorkoutData(currentUser.id);
+  const { active_workout_plan } = await getUserWorkoutData(currentUser.id);
 
   const date = new Date();
   const formattedDate = date.toLocaleDateString("en-NL", {
@@ -56,10 +22,12 @@ export default async function Page() {
     month: "long",
   });
 
-  if (!workoutInformation.active_workout_plan) {
+  if (!active_workout_plan) {
     return (
-      <main className="flex flex-col justify-between pt-8">
-        <DashboardHeader {...{ date: formattedDate, user: currentUser }} />
+      <AppMain className="px-3">
+        <DashboardHeader
+          {...{ type: "overview", date: formattedDate, user: currentUser }}
+        />
 
         <article className="border bg-[#1A1A1B] mx-3 rounded-md px-3 py-6 border-light-100">
           <h1 className="font-extrabold text-xl">No workout plan available.</h1>
@@ -99,14 +67,18 @@ export default async function Page() {
             })}
           </div>
         </article>
-      </main>
+      </AppMain>
     );
   }
+
   return (
-    <main className="flex flex-col justify-between pt-8">
+    <AppMain className="px-3 flex flex-col justify-between pt-8">
       <DashboardHeader {...{ date: formattedDate, user: currentUser }} />
 
-      <WorkoutCalendar workouts={WORKOUTS} scheduled={SCHEDULED_DAYS} />
+      <WorkoutCalendar
+        workouts={active_workout_plan}
+        scheduled={SCHEDULED_DAYS}
+      />
 
       <article className="mt-8 flex flex-col space-y-2">
         <h2 className="font-semibold text-2xl">Upcoming workout</h2>
@@ -137,6 +109,6 @@ export default async function Page() {
           </div>
         </div>
       </article>
-    </main>
+    </AppMain>
   );
 }

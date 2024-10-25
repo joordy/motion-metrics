@@ -1,18 +1,16 @@
+import type { FrequencyDay, Workout } from "@/types/workout";
+
 import { cn, getDatesOfCurrentWeek } from "@/lib/utils";
 
 const DAY_ABBREVIATIONS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-interface Workout {
-  id: string;
-  date: string;
-}
-
 interface Props {
-  workouts: Workout[];
-  scheduled: number[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  workouts: any;
+  scheduled: string[];
 }
 
-export function WorkoutCalendar({ scheduled, workouts }: Props) {
+export function WorkoutCalendar({ workouts }: Props) {
   const weekDates = getDatesOfCurrentWeek();
   const today = new Date();
 
@@ -22,12 +20,21 @@ export function WorkoutCalendar({ scheduled, workouts }: Props) {
         {weekDates.map((el: Date, i: number) => {
           const date = el.getDate();
           const isActive = el.toDateString() === today.toDateString();
-          const dateString = el.toISOString().split("T")[0]; // 'YYYY-MM-DD'
-          const dayWorkouts = workouts.filter(
-            (workout) => workout.date === dateString
+
+          const getMondayBasedWeekIndex = (date: Date = new Date()) =>
+            (date.getDay() === 0
+              ? "6"
+              : (date.getDay() - 1).toString()) as FrequencyDay;
+
+          const dayIndex = getMondayBasedWeekIndex(el);
+
+          const isScheduled = workouts.some((workout: Workout) =>
+            workout.frequency?.includes(dayIndex),
           );
-          const isScheduled = scheduled.includes(el.getDay());
-          const isScheduledAndLogged = isScheduled && dayWorkouts.length >= 1;
+
+          const dayWorkouts = workouts.filter((workout: Workout) =>
+            workout.frequency?.includes(dayIndex),
+          );
 
           return (
             <li
@@ -35,12 +42,14 @@ export function WorkoutCalendar({ scheduled, workouts }: Props) {
               className={cn(
                 "relative flex py-2 px-1 text-md rounded justify-center items-center flex-col",
                 {
-                  "bg-brand-lime font-bold text-dark-100": isActive,
-                  "bg-brand-lime/50": dayWorkouts.length >= 1 && !isActive,
-                  "border border-brand-lime/20":
+                  "border border-dark-800 font-bold ": isActive,
+                  "border border-dark-800/50":
+                    dayWorkouts.length >= 1 && !isActive,
+                  "bg-dark-800 text-dark-100":
+                    dayWorkouts.length >= 1 && isActive,
+                  "border border-dark-800/20":
                     isScheduled && dayWorkouts.length === 0 && !isActive,
-                  "bg-brand-lime/20": isScheduledAndLogged && !isActive,
-                }
+                },
               )}
             >
               <p className="text-sm leading-tight">{DAY_ABBREVIATIONS[i]}</p>

@@ -1,3 +1,5 @@
+import type { WorkoutExercise } from "@/types/workout";
+
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -22,3 +24,16 @@ export function getDatesOfCurrentWeek(): Date[] {
 
   return weekDates;
 }
+
+export const getTotalSets = (exercises: WorkoutExercise[]) => {
+  return exercises.reduce(
+    (
+      acc: number,
+      exercise: {
+        sets: { reps: string; targetWeight: string }[];
+        name: string;
+      },
+    ) => acc + exercise.sets.length,
+    0,
+  );
+};

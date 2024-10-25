@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { password } from "./auth";
+import { password } from "./index";
 
 export const startSchema = z.object({});
 

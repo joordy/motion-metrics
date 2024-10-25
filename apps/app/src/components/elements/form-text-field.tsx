@@ -25,7 +25,7 @@ export function FormTextField({ form, config }: Props) {
       name={config.id}
       render={({ field }) => (
         <FormItem className="space-y-1 w-full relative">
-          <FormLabel className="block z-10 text-md font-medium pointer-events-none absolute -top-0.5 bg-dark-100 left-2 px-1 mb-1">
+          <FormLabel className="block z-10 text-md font-medium pointer-events-none absolute -top-1.5 bg-dark-100 left-2 px-1 mb-2">
             {config.label}
           </FormLabel>
           <div className="grid grid-rows-[1fr,18px] gap-1">
